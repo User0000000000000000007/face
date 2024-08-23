@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Header</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        .header, .nav-container {
+            background: linear-gradient(135deg, #1e1e1e, #2c2c2c);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+            border-radius: 10px;
+            margin: 10px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffffff;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(255, 71, 126, 0.8);
+        }
+
+        .cta-button {
+            padding: 8px 15px;
+            background-color: #bf021f;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 14px;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255, 71, 126, 0.5);
+        }
+
+        .cta-button:hover {
+            background-color: #ff668e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(255, 71, 126, 0.7);
+        }
+        
+        @keyframes hanging {
+            0% {transform: translateY(-227px) translateX(-11px) rotate(7deg);} 
+         100% {transform: translateY(-27px) translateX(11px) rotate(-17deg);}
+}
+       @keyframes drop {
+            0% {transform: translateY(-27px) translateX(11px) rotate(-17deg);} 
+         100% {transform: translateY(507px) translateX(-10px) rotate(-217deg);}
+}
+
+.nav-container {
+          position: absolute;
+            right: 0;
+            transform: translateY(-27px) translateX(11px) rotate(-17deg);
+            top: 60px; /* Adjust as needed */
+           animation: hanging 500ms linear; 
+        }
+
+        nav {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 16px;
+            position: relative;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin: 5px 0;
+            transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 100%;
+            background-color: #ff477e;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease-out;
+        }
+
+        nav a:hover {
+            color: #ff477e;
+            transform: scale(1.05);
+        }
+
+        nav a:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        @keyframes realisticFlicker {
+            0% { opacity: 1; text-shadow: 0 0 10px rgba(255, 71, 126, 0.8); }
+            10% { opacity: 0.6; text-shadow: 0 0 20px rgba(255, 71, 126, 1); }
+            20% { opacity: 0.2; text-shadow: 0 0 30px rgba(255, 71, 126, 0.9); }
+            30% { opacity: 0.5; text-shadow: 0 0 20px rgba(255, 71, 126, 0.7); }
+            40% { opacity: 0.3; text-shadow: 0 0 25px rgba(255, 71, 126, 0.8); }
+            50% { opacity: 0.7; text-shadow: 0 0 15px rgba(255, 71, 126, 0.6); }
+            60% { opacity: 0.4; text-shadow: 0 0 20px rgba(255, 71, 126, 0.9); }
+            70% { opacity: 0.8; text-shadow: 0 0 25px rgba(255, 71, 126, 0.7); }
+            80% { opacity: 0.3; text-shadow: 0 0 30px rgba(255, 71, 126, 0.8); }
+            90% { opacity: 0.6; text-shadow: 0 0 20px rgba(255, 71, 126, 0.9); }
+            100% { opacity: 1; text-shadow: 0 0 10px rgba(255, 71, 126, 0.8); }
+        }
+
+        @keyframes tada {
+            0% { transform: scale(1); }
+            10% { transform: scale(1.1) rotate(-10deg); }
+            20% { transform: scale(0.9) rotate(10deg); }
+            30% { transform: scale(1.1) rotate(-10deg); }
+            40% { transform: scale(0.9) rotate(10deg); }
+            50% { transform: scale(1.1); }
+            60% { transform: scale(1) rotate(-5deg); }
+            70% { transform: scale(1) rotate(5deg); }
+            80% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+
+        .tada {
+            animation: tada 0.8s ease;
+        }
+
+   
+/*div,a,button,svg,body,header{border: solid white 2px;}*/
+    </style>
+</head>
+
+<body>
+<div style="position: fixed;top: 0;left: 0;width: 100%;">
+    <header class="header">
+        <div class="logo" id="logo">Robin<span>'s</span> Network</div>
+        <a href="#contact" class="cta-button tada-button">Get Started</a>
+        
+        <a href="#contact" class="tada-button" onclick="document.getElementById('nav-container').style ='';">
+            <svg width="20" height="20" fill="white" viewBox="2 2 20 20">
+            <path d="M3 18h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18V8H3v2z"/>
+          </svg>
+</a>
+    </header>
+
+    <div class="nav-container" id="nav-container">
+        <nav>
+            <a onclick="document.getElementById('nav-container').style ='animation: drop 500ms linear;';setTimeout(`document.getElementById('nav-container').style.display = 'none';`,500);" class="tada-button" style="position: absolute; top: 0; right: 0; background-color: red;">x</a>
+            <a href="#home" class="tada-button">Home</a>
+            <a href="#courses" class="tada-button">Courses</a>
+            <a href="#services" class="tada-button">Services</a>
+            <a href="#portfolio" class="tada-button">Portfolio</a>
+        </nav>
+    </div>
+</div>
+    <script>
+        function triggerFlicker() {
+            const logo = document.getElementById('logo');
+            const duration = getRandomFloat(0.01, 0.1, 0.2,0.2,0.2,0.1,0.5,0.7, 0.5); // Random duration between 0.1s and 2s
+            logo.style.animation = `realisticFlicker ${duration}s steps(10, end) both`;
+            
+            // Remove animation after it completes to avoid continuous flickering
+            setTimeout(() => {
+                logo.style.animation = '';
+            }, duration * 1000); // Duration of the flicker animation in milliseconds
+        }
+
+        function startFlickering() {
+            setInterval(triggerFlicker, getRandomInt(1000, 2000)); // Random intervals between 1s and 2s
+        }
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        function getRandomFloat(min, max) {
+            return (Math.random() * (max - min) + min).toFixed(1); // Returns a float with one decimal place
+        }
+
+        startFlickering();
+
+        // Select all elements with the class 'tada-button'
+        const buttons = document.querySelectorAll('.tada-button');
+
+        // Iterate over the NodeList and add an event listener to each element
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                this.classList.add('tada');
+                setTimeout(() => this.classList.remove('tada'), 800); // Remove the class after animation completes
+            });
+        });
+    
+if(window.innerWidth > 600){window.location.replace("index-desk.html")}
+    </script>
+</body>
+
+</html>
