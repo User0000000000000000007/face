@@ -1,0 +1,298 @@
+<html id="htmlmain">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=0.5, user-scalable=0;">
+  <link href="styles.css" rel="stylesheet">
+  <style>
+    .task-container {
+      padding: 10px;
+      border: solid rgba(221, 103, 103, 0.315) 2px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .todo-item {
+      margin-bottom: 5px;
+    }
+    .task-options {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 5px;
+    }
+    .task-options .option-group {
+      width: 48%;
+      margin-right: 2%;
+    }
+    .task-options .option-group.full-width {
+      width: 100%;
+      margin-right: 0;
+    }
+    .task-options label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .task-buttons {
+      margin-top: 10px;
+    }
+    .repeatdays {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .priority-options input {
+      margin-right: 5px;
+    }
+    .dayslabel{    border: solid #5d5d5d61;
+    background: white;
+    border-radius: 5px;
+    padding: 8px;
+    text-align: center; width: 8%;
+  }
+  </style>
+</head>
+<body>
+  <svg style="position: fixed;transform: rotate(0deg); top: 10px; left: 10px; cursor: pointer; width: 110px; height: 110px; border: 10px solid; border-radius: 1000px; z-index: 111111111111;" class="back-button" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" onclick="window.location.replace('index.html');">
+    <polyline points="15 18 9 12 15 6"></polyline>
+  </svg>
+
+  <div id="maindiv" class="container">
+    <h1>Custom Tasks [Developers only]</h1>
+  
+    <input class="todo-item" checked id="taskcount" value="0" type="number" disabled>
+    <ul class="todo-list" id="todo-list">
+      <!-- Tasks will be added here -->
+    </ul>
+<div style="width: 100%;height: 100px;position: relative;"></div>
+    <div style="width: 100%;">
+      <button onclick="createTask()" style="width: 46%; position: fixed;bottom: 10; left: 10; font-size: 50px;box-shadow:4px 3px 4px 1px rgb(0 188 255 / 46%);" class="todo-item">Create Task</button>
+      <button onclick="resetTasks()" style="width: 46%; position: fixed;bottom: 10; right: 10; font-size: 50px;box-shadow:4px 3px 4px 1px rgb(0 188 255 / 46%);" class="todo-item">Reset Tasks</button>
+     </div>
+  </div>
+  <div id="loadscreen" style="display: none;">
+    <div class="progress-container">
+      <svg width="350" height="350" viewBox="0 0 150 150">
+        <circle class="progress-circle background-circle" cx="75" cy="75" r="70" />
+        <circle class="progress-circle foreground-circle" cx="75" cy="75" r="70" />
+      </svg>
+      <span id="progress-text">0%</span>
+      </div><span id="progress-textb">Loading...</span>        
+      <script>
+     function crt(){
+      if(document.getElementById("loadscreen").style.display == "none"){}else{document.getElementById("htmlmain").innerHTML = "<h1>Critical OverLoad!!!</h1><br><h2>Critical System OverLoad!!!</h2><br><button onclick='localStorage.clear();alert(`reset! click ok to restart`);window.location.reload();'>Reset Everything</button>";}
+     }
+     setTimeout(crt,61000);
+      </script>
+    
+  <script>
+    var value = 0;
+    var created = 1;
+      const progressText = document.getElementById('progress-text');
+      const progressCircle = document.querySelector('.foreground-circle');
+      const circumference = 2 * Math.PI * 70;
+  function Update() {
+     if(value < 101){
+        const offset = circumference - (value / 100) * circumference;
+        progressCircle.style.strokeDashoffset = offset; 
+        progressText.textContent = `${value}%`;
+      }};
+  setInterval(Update,10);
+
+
+   if(!localStorage.taskscount){localStorage.taskscount = 0;}
+function st(){  
+  
+  if(localStorage.taskscount > 0){
+    document.getElementById("loadscreen").style = "";
+   
+  const todoList = document.getElementById('todo-list');
+      const taskDiv = document.createElement('div');
+      taskDiv.className = 'task-container';
+      taskDiv.id = `task-container-${created}`;
+      
+      taskDiv.innerHTML = `
+        <input class="todo-item taskk" id="task${created}" placeholder="Set your Task ${created}" oninput="localStorage.taskdetail${created}=localStorage.taskdetail${created}.replace(/taskname=[^&]*/,'taskname='+encodeURIComponent(this.value));">
+        <div class="task-options">
+          <div class="option-group full-width">
+            <label for="task${created}">Category</label>
+            <select class="todo-item timetask" id="cat${created}" oninput="localStorage.taskdetail${created}=localStorage.taskdetail${created}.replace(/category=[^&]*/,'category='+encodeURIComponent(this.value));">
+              <option value="religious">Religious Activity</option>
+              <option value="health">Food and Health</option>
+              <option value="work">Creative Work</option>
+              <option value="study">Study</option>
+              <option value="homework">HomeWork</option>
+              <option value="exercise">Exercise</option>
+              <option value="entertainment">Entertainment</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        
+          <div class="option-group full-width">
+            <label>Repeating Days</label>
+            <div class="repeatdays">
+             
+<label class="dayslabel" ><input id="satof${created}" oninput="if(this.checked) {localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/sat=[^&]*/, 'sat=1');}else{localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/sat=[^&]*/, 'sat=0');}" type="checkbox" >Sat</label>
+
+<label class="dayslabel" ><input id="sunof${created}" oninput="if(this.checked) {localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/sun=[^&]*/, 'sun=1');}else{localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/sun=[^&]*/, 'sun=0');}" type="checkbox" >Sun</label>
+
+<label class="dayslabel" ><input id="monof${created}" oninput="if(this.checked) {localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/mon=[^&]*/, 'mon=1');}else{localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/mon=[^&]*/, 'mon=0');}" type="checkbox" >Mon</label>
+
+<label class="dayslabel" ><input id="tueof${created}" oninput="if(this.checked) {localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/tue=[^&]*/, 'tue=1');}else{localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/tue=[^&]*/, 'tue=0');}" type="checkbox" >Tue</label>
+
+<label class="dayslabel" ><input id="wedof${created}" oninput="if(this.checked) {localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/wed=[^&]*/, 'wed=1');}else{localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/wed=[^&]*/, 'wed=0');}" type="checkbox" >Wed</label>
+
+<label class="dayslabel" ><input id="thuof${created}" oninput="if(this.checked) {localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/thu=[^&]*/, 'thu=1');}else{localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/thu=[^&]*/, 'thu=0');}" type="checkbox" >Thu</label>
+
+<label class="dayslabel" ><input id="friof${created}" oninput="if(this.checked) {localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/fri=[^&]*/, 'fri=1');}else{localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/fri=[^&]*/, 'fri=0');}" type="checkbox" >Fri</label>
+
+</div>
+          </div>
+        </div>
+        <div class="task-buttons">
+          <button onclick="removeTask(${created})" class="todo-item" style="background-color:#fd3030;color:white;transform:translateX(400%);">Remove Task</button>
+        </div>
+      `;
+      
+      todoList.appendChild(taskDiv);
+      document.getElementById('taskcount').value = created;
+    let data = localStorage['taskdetail'+created];
+    let sat = data.match(/sat=(\d+)/);
+    let sun = data.match(/sun=(\d+)/);
+    let mon = data.match(/mon=(\d+)/);
+    let tue = data.match(/tue=(\d+)/);
+    let wed = data.match(/wed=(\d+)/);
+    let thu = data.match(/thu=(\d+)/);
+    let fri = data.match(/fri=(\d+)/);
+    let cat = data.match(/category=([^&]*)/);
+    let taskname = data.match(/taskname=([^&]*)/);
+    if (sat && sat[1] === "1"){document.getElementById(`satof${created}`).checked = true;}else{document.getElementById(`satof${created}`).checked = false;}
+    if (sun && sun[1] === "1"){document.getElementById(`sunof${created}`).checked = true;}else{document.getElementById(`sunof${created}`).checked = false;}
+    if (mon && mon[1] === "1"){document.getElementById(`monof${created}`).checked = true;}else{document.getElementById(`monof${created}`).checked = false;}
+    if (tue && tue[1] === "1"){document.getElementById(`tueof${created}`).checked = true;}else{document.getElementById(`tueof${created}`).checked = false;}
+    if (wed && wed[1] === "1"){document.getElementById(`wedof${created}`).checked = true;}else{document.getElementById(`wedof${created}`).checked = false;}
+    if (thu && thu[1] === "1"){document.getElementById(`thuof${created}`).checked = true;}else{document.getElementById(`thuof${created}`).checked = false;}
+    if (fri && fri[1] === "1"){document.getElementById(`friof${created}`).checked = true;}else{document.getElementById(`friof${created}`).checked = false;}
+
+    document.getElementById(`cat${created}`).value = decodeURIComponent(cat[1]);
+    if(taskname[1] === '0'){}
+    else{document.getElementById(`task${created}`).value = decodeURIComponent(taskname[1]);}
+value = ((created / localStorage.taskscount) * 100).toFixed(0);
+    created++;
+    setTimeout(ts,1); 
+  }
+}
+function ts() {
+  if(created <= localStorage.taskscount){st();}
+  else{ setTimeout('document.getElementById("loadscreen").style = "display:none;"',200);}
+} st();
+  
+
+
+
+
+function createTask() {
+      localStorage.taskscount++;
+      var created = localStorage.taskscount;
+      const todoList = document.getElementById('todo-list');
+      const taskDiv = document.createElement('div');
+      taskDiv.className = 'task-container';
+      taskDiv.id = `task-container-${localStorage.taskscount}`;
+      if(!localStorage['taskdetail'+created]){localStorage['taskdetail'+created] = `done=0&taskname=0&category=work&sat=0&sun=1&mon=1&tue=1&wed=1&thu=1&fri=0&`;}
+
+      taskDiv.innerHTML = `        <input class="todo-item taskk" id="task${created}" placeholder="Set your Task ${created}" oninput="localStorage.taskdetail${created}=localStorage.taskdetail${created}.replace(/taskname=[^&]*/,'taskname='+encodeURIComponent(this.value));">
+        <div class="task-options">
+          <div class="option-group full-width">
+            <label for="task${created}">Category</label>
+            <select class="todo-item timetask" id="cat${created}" oninput="localStorage.taskdetail${created}=localStorage.taskdetail${created}.replace(/category=[^&]*/,'category='+encodeURIComponent(this.value));">
+              <option value="religious">Religious Activity</option>
+              <option value="health">Food and Health</option>
+              <option value="work">Creative Work</option>
+              <option value="study">Study</option>
+              <option value="homework">HomeWork</option>
+              <option value="exercise">Exercise</option>
+              <option value="entertainment">Entertainment</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        
+          <div class="option-group full-width">
+            <label>Repeating Days</label>
+            <div class="repeatdays">
+             
+<label class="dayslabel" ><input id="satof${created}" oninput="if(this.checked) {localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/sat=[^&]*/, 'sat=1');}else{localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/sat=[^&]*/, 'sat=0');}" type="checkbox" >Sat</label>
+
+<label class="dayslabel" ><input id="sunof${created}" oninput="if(this.checked) {localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/sun=[^&]*/, 'sun=1');}else{localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/sun=[^&]*/, 'sun=0');}" type="checkbox" >Sun</label>
+
+<label class="dayslabel" ><input id="monof${created}" oninput="if(this.checked) {localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/mon=[^&]*/, 'mon=1');}else{localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/mon=[^&]*/, 'mon=0');}" type="checkbox" >Mon</label>
+
+<label class="dayslabel" ><input id="tueof${created}" oninput="if(this.checked) {localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/tue=[^&]*/, 'tue=1');}else{localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/tue=[^&]*/, 'tue=0');}" type="checkbox" >Tue</label>
+
+<label class="dayslabel" ><input id="wedof${created}" oninput="if(this.checked) {localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/wed=[^&]*/, 'wed=1');}else{localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/wed=[^&]*/, 'wed=0');}" type="checkbox" >Wed</label>
+
+<label class="dayslabel" ><input id="thuof${created}" oninput="if(this.checked) {localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/thu=[^&]*/, 'thu=1');}else{localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/thu=[^&]*/, 'thu=0');}" type="checkbox" >Thu</label>
+
+<label class="dayslabel" ><input id="friof${created}" oninput="if(this.checked) {localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/fri=[^&]*/, 'fri=1');}else{localStorage.taskdetail${created} = localStorage.taskdetail${created}.replace(/fri=[^&]*/, 'fri=0');}" type="checkbox" >Fri</label>
+
+</div>
+          </div>
+        </div>
+        <div class="task-buttons">
+          <button onclick="removeTask(${created})" class="todo-item" style="background-color:#fd3030;color:white;transform:translateX(400%);">Remove Task</button>
+        </div>
+      `;
+      
+      todoList.appendChild(taskDiv);
+      document.getElementById('taskcount').value = localStorage.taskscount;
+    }
+
+    function set() {
+      console.log('Tasks set/modified.');
+    }
+        
+                  function resetTasks() {
+                    
+                       if( localStorage.taskscount > 0){
+                                 document.getElementById('taskcount').value = localStorage.taskscount;
+                                          resetsd();
+                                                    }
+                                                   }
+                  function resetsd(){
+                    document.getElementById('todo-list').innerHTML='clearing';
+                    
+                                   if(localStorage.taskscount > 0){
+                                    localStorage.removeItem('taskdetail'+localStorage.taskscount);
+                                    localStorage.taskscount--;
+                                    document.getElementById('taskcount').value = localStorage.taskscount;
+                                   }
+                                  setTimeout(resetds,10);
+                                     }
+                  function resetds() {
+                                 if(0 < localStorage.taskscount){resetsd();}else{
+                                 document.getElementById('todo-list').innerHTML='';
+                                }
+                                          }
+function removeKeyAndReassign(targetKey) {
+    let allKeys = Object.keys(localStorage).filter(key => key.startsWith('taskdetail'));
+
+    allKeys.sort((a, b) => parseInt(a.match(/\d+/)) - parseInt(b.match(/\d+/)));
+ const targetIndex = allKeys.indexOf(targetKey);
+   localStorage.removeItem(targetKey);
+   for (let i = targetIndex + 1; i < allKeys.length; i++) {
+        const previousKey = allKeys[i - 1];
+        const currentKey = allKeys[i];
+
+        localStorage.setItem(previousKey, localStorage.getItem(currentKey));
+        localStorage.removeItem(currentKey);
+    }
+}
+
+
+
+
+    function removeTask(taskId) {
+      document.getElementById('todo-list').innerHTML='';
+        removeKeyAndReassign('taskdetail'+taskId);
+        localStorage.taskscount--;
+        document.getElementById('taskcount').value = localStorage.taskscount;     
+       created=1;    document.getElementById("progress-textb").innerHTML = "Optimizig..."; st();
+    }
+  </script>
+</body>
+</html>
