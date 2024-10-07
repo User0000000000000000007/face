@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Class Platforms</title>
+    <style>
+        /* Reset and Box Sizing */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body, html {
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        /* Header Styling */
+        header {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Button Container Styling */
+        .button-container {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Button Styling */
+        button {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 80%;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding-left: 100px; /* Space for the SVG */
+        }
+
+        button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Specific Button Styles */
+        .udvash {
+            background: linear-gradient(135deg, #4CAF50, #81C784);
+        }
+
+        .youtube {
+            background: linear-gradient(135deg, #FF0000, #FF5252);
+        }
+
+        /* SVG Icon Styling */
+        svg {
+            position: absolute;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            fill: white;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            button {
+                font-size: 1.5rem;
+                padding-left: 80px; /* Adjust padding for smaller screens */
+            }
+
+            svg {
+                width: 40px;
+                height: 40px;
+                left: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h2>value your time, dont waste it on social media or using phone
+</h2>
+    </header>
+
+    <!-- Udvash Class Button -->
+    <div class="button-container">
+        <button class="udvash" onclick="window.location.href='https://online.udvash-unmesh.com/'">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+                <!-- Udvash Class SVG Icon (e.g., a book or education icon) -->
+                <path d="M32 4C17.664 4 6 15.664 6 30c0 12.145 7.498 22.473 18 27.182V60h20v-2.818C50.502 52.473 58 42.145 58 30 58 15.664 46.336 4 32 4zM32 52C21.164 52 12 41.536 12 30S21.164 8 32 8s20 10.464 20 22-9.164 22-20 22z"/>
+                <path d="M22 24h20v4H22zM22 34h20v4H22z"/>
+            </svg>
+            Udvash Class
+        </button>
+    </div>
+    
+    <!-- YouTube Class Button -->
+    <div class="button-container">
+        <button class="youtube" onclick="window.location.href='https://www.youtube.com/'">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                <!-- YouTube Logo SVG Icon -->
+                <path d="M549.655 124.083c-6.281-23.775-24.793-42.287-48.568-48.568C458.332 64 288 64 288 64s-170.332 0-213.087 11.515c-23.775 6.281-42.287 24.793-48.568 48.568C16 166.836 16 256 16 256s0 89.164 10.345 131.917c6.281 23.775 24.793 42.287 48.568 48.568C117.668 448 288 448 288 448s170.332 0 213.087-11.515c23.775-6.281 42.287-24.793 48.568-48.568C560 345.164 560 256 560 256s0-89.164-10.345-131.917zM232 334V178l142 78-142 78z"/>
+            </svg>
+            YouTube Class
+        </button>
+    </div>
+</body>
+</html>
